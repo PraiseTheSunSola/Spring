@@ -1,9 +1,15 @@
 package com.example.test1.control;
 
+import java.util.Map;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.example.test1.DTO.LoginDto;
+import com.example.test1.DTO.MemberDto;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -41,22 +47,79 @@ public class MainController {
 	
 	// 요청하는 방식을 메서드로 했으니 마찬가지로 post로 하면 다르게 작동한다. 
 	
-	@PostMapping("/signUp")
-	public String signUpSave(@RequestParam("id") String id,
-		@RequestParam("pw") String pw, @RequestParam("tel") String tel,
-		@RequestParam("birth")String birth){
-		
-		System.out.println(id);
-		System.out.println(pw);
-		System.out.println(tel);
-		System.out.println(birth);
-		
-		return "member/signUp";
-	}
+	//form 데이터 받아오는 방법 1.
+//	@PostMapping("/signUp")
+//	public String signUpSave(@RequestParam("id") String id,
+//		@RequestParam("pw") String pw, @RequestParam("tel") String tel,
+//		@RequestParam("birth")String birth){
+//		
+//		System.out.println(id);
+//		System.out.println(pw);
+//		System.out.println(tel);
+//		System.out.println(birth);
+//		
+//		return "member/signUp";
+//	}
 	
 	// 주소 요청: /signUp
 	// 뷰 페이지: member/signUp.jsp
 	// 뷰 페이지 내용: 아이디, 비밀번호, 연락처, 생년월일 입력
+	
+	
+	
+	
+	// form 데이터 받아오는 방법 2. 범용이 아닌 특정 데이터만 받아올수 있음
+	// 데이터 베이스 저장까지 생각하면 이 방법 괜춘 
+	
+//	@PostMapping("/signUp")
+//	public String signUpSave(@ModelAttribute MemberDto memberDto) {
+//		
+//		System.out.println("두번째 방법:"+memberDto.getId());
+//		
+//		return "member/signUp";
+//	}
+	
+	
+	// form 데이터 받아오는 방법 3. 범용적으로 데이터 다 받아올순 있지만 db 운용이 번거로움 
+	// 파라미터의 이름과 값을 저장한다. => Map으로 받아온다. 
+	@PostMapping("/signUp")
+	public String signUpSave(@RequestParam Map<String, String> pm) {
+	
+		System.out.println(" 세번째 방법: " + pm.get("id") );
+		
+		// input 태그의 name을 키로 받아옴 
+		return "member/signUp";
+	}
+
+	// form 데이터 받아오기 실습
+	// 내용 : 로그인을 위해 로그인 페이지에서 아이디와 비밀번호를 입력하고
+	// 		 로그인 버튼을 클릭한다. 
+	
+	// DTO 클래스 : LoginDto
+	// 뷰 페이지 : login.jsp - 로그인 from 페이지
+	// 			 loginResult.jsp - 로그인 후 보여줄 페이지
+	// 		loginResult.jsp에 <a href="/test"> 페이지 이동 </a> 넣기
+	
+	// 요청 주소 및 방식 : 로그인페이지 - GET방식 , /login
+	// 				   로그인처리 - POST방식,  /login
+
+	@GetMapping("/login")
+	public String loginPage() {
+		
+		return "login";
+	}
+	
+	
+	@PostMapping("/login")
+	public String loginPage(@ModelAttribute LoginDto loginDto) {
+		
+		System.out.println(loginDto.getId());
+		System.out.println(loginDto.getPw());
+		
+		return "loginResult";
+	}
+	
+	
 	
 } // end 
 

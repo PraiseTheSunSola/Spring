@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.example.test1.DTO.LoginDto;
 import com.example.test1.DTO.MemberDto;
@@ -119,7 +120,20 @@ public class MainController {
 		return "loginResult";
 	}
 	
+	//요청방식에 따른 주소 맵핑 -> @GetMapping("/")
+	// 요청주소 처리할 메서드 정의와 반환값으로 보여줄 페이지 이름
 	
+	@GetMapping("/") // () 안에 /만 넣으면 사이트 메인을 보여주겠다는것 처음 위치 
+	public ModelAndView home() {
+		String title="우타는 영원히 잠들어있는 것입니까 오다센세?";
+		ModelAndView mv = new ModelAndView("index"); //ModelAndView객체 생성하면서
+											  // 뷰페이지 입력
+		
+		mv.addObject("pageTitle", title);
+		return mv;
+	}
+	
+
 	
 } // end 
 

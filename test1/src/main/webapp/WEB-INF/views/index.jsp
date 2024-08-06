@@ -8,6 +8,11 @@
 </head>
 <body>
 
+	<h1> ${pageTitle}</h1>
 
+	<a href="/Login">로그인</a>
+	<a href="/signUp">회원가입</a>
+	<a href="/board">게시판</a>
+	
 </body>
 </html>

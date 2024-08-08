@@ -26,11 +26,11 @@
 				  </div>
 				   <div class="inputField">
 					<label for="bookCost">가격 </label>
-					<input type="text" name="bookCost" id="bookCost">
+					<input type="number" name="bookCost" id="bookCost">
 				  </div>
 				   <div class="inputField">
 					<label for="bookPage"> 페이지수 </label>
-					<input type="text" name="bookPage" id="bookPage">
+					<input type="number" name="bookPage" id="bookPage">
 				  </div>
 				  <div class="inputField">
 				    <label for="publisher"> 출판사 </label>

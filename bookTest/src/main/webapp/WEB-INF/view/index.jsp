@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +14,20 @@
 </head>
 <body>
 
+	
+	
+	<!-- 
+		클래스명
+		
+		컨트롤 : CoffeControl
+		서비스 : CoffeService
+		DTO : CoffeDto
+		DAO : CoffeDao
+	
+	 -->
+	 
+	
+
 	<div id="wrap">
 		<h2> 도서관리 </h2>
 		
@@ -21,12 +37,14 @@
 	  </div>
 	  <div id="bookListWrap">
 	   <ul id="bookList">
-	     <li class="blist">
-	       <span class="title">태양만세 하는법</span>
-	       <span class="auth">솔라</span>
-	       <span class="bookCode">ㅌㅊㅁㅅ1234</span>
-	       <span class="category">철학</span>
+	      <c:forEach var="row" items="${list }">
+	      <li class="blist">
+	       <span class="title">${row.bookTitle }</span>
+	       <span class="auth">${row.bookAuthor}</span>
+	       <span class="bookCode">${row.bookId }</span>
+	       <span class="category">${row.publisher }</span>
 	     </li> 
+	     </c:forEach>
 	     
 	     <li class="blist">
 	       <span class="title">아르토리우스의 검술 훈련</span>

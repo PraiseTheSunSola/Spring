@@ -23,6 +23,7 @@
 	   <ul id="bookList">
 	     <c:forEach var="row" items="${Menu }">
 	     <li class="blist">
+	     <a href="/coffe/view?id=${row.coffeId }">${row.item_name }</a>
 	        <span class="coffeCode">${row.coffeId }</span>
 	       <span class="name">${row.item_name}</span>
 	       <span class="price">${row.price }</span>

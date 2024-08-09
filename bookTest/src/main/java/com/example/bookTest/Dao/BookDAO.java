@@ -28,7 +28,7 @@ public class BookDAO {
 	// book_id 컬럼이 중복데이터를 가질수 없는 유일값이기 때문에 
 	
 	public BookDto findId(int id) {
-		String sql="select * from book where book_id?";
+		String sql="select * from book where book_id=?";
 		
 		// jt.queryForObject( 쿼리문, mapper, ?에 넣어줄값 );
 		

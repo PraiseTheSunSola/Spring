@@ -52,16 +52,23 @@ public class BookController {
 	
 
 	@GetMapping("/book/view")
-	public ModelAndView view(@RequestParam("id") int id) {
+	public ModelAndView view(@RequestParam(value="id", 
+	required=false, defaultValue="0") int id) {
+		// id라는 파리미터가 없다면 기본값 0을 줘라. 
+		// 기본값이 0이라면 null값을 줘라. 
+		
 		
 		BookDto data = bookService.getBook(id);
-		if(data == null) data = new BookDto(); // getBook메서드의 반환값으로 null 저장 된다면
-											   // view.jsp에서 변수의 값이 null이기 때문에 
-											   // get 메서드 호출이 안되어 오류가 발생한다. 
 		
 		
 		
-		return new ModelAndView("book/view");
+		if(data == null) data = new BookDto(); 
+		// getBook메서드의 반환값으로 null 저장 된다면
+		// view.jsp에서 변수의 값이 null이기 때문에 
+	    // get 메서드 호출이 안되어 오류가 발생한다. 
+		
+		
+		return new ModelAndView("book/view").addObject("book",data);
 	}
 	
 

@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+ <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
+<!-- taglib prefix="fmt"는 숫자 세자리 마다 , 찍어주는 것  -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,23 +26,28 @@ integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
 	
 		<tr>
 			<td class="fieldName">책 제목</td>
-			<td class="value"></td>
+			<td class="value">${book.getBookTitle() }</td>
 		</tr>	
 		<tr>
 			<td class="fieldName">저자</td>
-			<td class="value"></td>
+			<td class="value">${ book.bookAuthor }</td>
 		</tr>
 		<tr>
 			<td class="fieldName">출판사</td>
-			<td class="value"></td>
+			<td class="value">${book.publisher }</td>
 		</tr>
 		<tr>
 			<td class="fieldName">페이지수</td>
-			<td class="value"></td>
+			<td class="value">
+				<fmt:formatNumber value="${book.bookPage }" pattern="#,###"/>
+			</td>
 		</tr>
 		<tr>
 			<td class="fieldName">가격</td>
-			<td class="value"></td>
+			<td class="value">
+			<fmt:formatNumber value="${book.bookCost }" type="currency"/>
+									<!--type="currency" 한국식 통화 표기   -->
+			</td>
 		</tr>
 		
 		<tr>

@@ -24,6 +24,36 @@ public class BookDAO {
 		this.jt = jdbcTemplate;
 	}
 	
+	// 도서 상세 정보 가져오기 = 1권에 대해서만!! (book_id컬럼으로 조회)
+	// book_id 컬럼이 중복데이터를 가질수 없는 유일값이기 때문에 
+	
+	public BookDto findId(int id) {
+		String sql="select * from book where book_id?";
+		
+		// jt.queryForObject( 쿼리문, mapper, ?에 넣어줄값 );
+		
+		// 인터페이스를 이용해서 익명 클래스를 만들수 있다. 
+		// 추상메서드를 클래스화 해준다. 
+		
+		BookDto data= jt.queryForObject(sql,
+				new RowMapper<BookDto>() { // RowMapper는 인터페이스임 클래스X
+					@Override
+					public BookDto mapRow(ResultSet rs, int rowNum) throws SQLException{
+						BookDto bookDto = new BookDto();
+						bookDto.setBookAuthor(rs.getString("book_author"));
+						bookDto.setBookCost(rs.getInt("book_cost"));
+						bookDto.setBookPage(rs.getInt("book_page"));
+						bookDto.setBookTitle(rs.getString("book_title"));
+						bookDto.setBookId(rs.getInt("book_id"));
+						bookDto.setPublisher(rs.getString("publisher"));
+						return bookDto;
+					}
+			}
+				,id );
+		
+		return data;
+	}
+	
 	// book 테이블 전체 데이터 가져오기 - 첫화면에 목록으로 출력하기 위해
 	
 	public List<BookDto> select() { 
@@ -53,7 +83,8 @@ public class BookDAO {
 			bookDto.setBookCost(rs.getInt("book_cost"));
 			bookDto.setBookPage(rs.getInt("book_page"));
 			bookDto.setBookTitle(rs.getString("book_title"));
-			bookDto.setPublisher(rs.getString("book_id"));
+			bookDto.setBookId(rs.getInt("book_id"));
+			bookDto.setPublisher(rs.getString("publisher"));
 			return bookDto;
 		}
 	}
